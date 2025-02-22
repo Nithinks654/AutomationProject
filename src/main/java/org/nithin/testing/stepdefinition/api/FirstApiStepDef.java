@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.internal.common.assertion.Assertion;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
@@ -34,9 +35,18 @@ public class FirstApiStepDef {
 
     }
 
-    @Then("I validate the body of the api")
-    public void iValidateTheBodyOfTheApi() {
-       String apiBody= apiResponse.asPrettyString();
-        System.out.println(apiBody);
+//    @Then("I validate the body of the api")
+//    public void iValidateTheBodyOfTheApi() {
+//       String apiBody= apiResponse.asPrettyString();
+//        System.out.println(apiBody);
+//    }
+
+    @Then("I validate the body of the api {string} is {string}")
+    public void iValidateTheBodyOfTheApiIs(String first, String name) {
+        String apiBody= apiResponse.asPrettyString();
+        JsonPath js = new JsonPath(apiBody); //for parsing json
+        String fn = js.getString(first);
+        Assert.assertEquals(name,fn);
+
     }
 }
