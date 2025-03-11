@@ -8,7 +8,7 @@ Feature: crud operations
   Scenario: I update a record in the api
     Given I call update api
     Then  I validate the HTTP status code 200
-    And I validate the body of the api for deleted record
+    And I validate the body of the api for updated record
 
   Scenario: I delete a record in the api
     Given I call delete api

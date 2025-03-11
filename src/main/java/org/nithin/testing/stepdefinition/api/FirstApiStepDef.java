@@ -38,7 +38,9 @@ public class FirstApiStepDef {
 
     @Then("I validate the HTTP status code {int}")
     public void iValidateTheHTTPStatusCode(int statusCode) {
-        Assert.assertEquals(statusCode, Constants.response.getStatusCode());
+        Constants.httpStatusCode = Constants.response.getStatusCode();
+
+        Assert.assertEquals(statusCode,Constants.httpStatusCode);
 
 
     }

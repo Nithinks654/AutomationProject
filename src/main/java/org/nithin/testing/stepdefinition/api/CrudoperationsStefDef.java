@@ -42,7 +42,7 @@ public class CrudoperationsStefDef {
                 then().extract().response();
     }
 
-    @And("I validate the body of the api for deleted record")
+    @And("I validate the body of the api for updated record")
     public void iValidateTheBodyOfTheApiForDeletedRecord() {
         String nameOutput = CommonStefDef.getJsonOutPut(response,"name");
         Assert.assertEquals(nameOutput,"Nithin");
