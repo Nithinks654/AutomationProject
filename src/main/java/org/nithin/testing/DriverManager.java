@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 import java.util.Collections;
 
-public class DriverManager extends Base {
+public class DriverManager  {
 //    private static WebDriver driver;
 
     public static WebDriver driver;

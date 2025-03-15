@@ -36,11 +36,6 @@ public class HomePageStefDef {
         homepage.validateEmailExist();
     }
 
-    @And("I close the webpage")
-    public void iCloseTheWebpage() {
-        homepage.closeThePage();
-    }
-
     @And("I validate that I am in create account page")
     public void iValidateThatIAmInCreateAccountPage() {
         homepage.validateCreateAccountPage();
@@ -62,4 +57,25 @@ public class HomePageStefDef {
         homepage.enterAllDetailsForSignUp(details);
 
     }
+
+    @When("I Click on continue Button")
+    public void iClickOnContinueButton() {
+        homepage.clickContinueButton();
+    }
+
+    @Then("It should display logged in username")
+    public void itShouldDisplayLoggedInUsername() {
+        homepage.validateLoggedInWithCorrectUsername();
+    }
+
+    @When("I click on delete account Button")
+    public void iClickOnDeleteAccountButton() {
+        homepage.clickDeleteAccountButton();
+    }
+
+    @Then("account deleted message should be displayed and click continue button")
+    public void accountDeletedMessageShouldBeDisplayedAndClickContinueButton() {
+        homepage.validateAccountDeleted();
+    }
+
 }

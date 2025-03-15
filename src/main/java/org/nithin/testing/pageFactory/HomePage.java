@@ -1,17 +1,15 @@
 package org.nithin.testing.pageFactory;
 
 import org.nithin.testing.Base;
-import org.nithin.testing.DriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
-public class HomePage extends DriverManager {
+public class HomePage extends Base {
     @FindBy(xpath = "//a[@href='/login']")
     WebElement signUpOrLoginButton;
 
@@ -75,6 +73,22 @@ public class HomePage extends DriverManager {
     @FindBy(css = "div > h2.title > b")
     WebElement accountCreatedMessage;
 
+    @FindBy(css = "a.btn")
+    WebElement continueButton;
+
+    @FindBy (css = "ul > li:nth-child(10) > a > b")
+    WebElement loggedUserName;
+
+    @FindBy(css = "a >i.fa.fa-trash-o")
+    WebElement deleteAccount;
+
+    @FindBy(css = "h2.title.text-center>b")
+    WebElement accountDeletedMsg;
+
+    @FindBy(css = "div > a.btn.btn-primary")
+    WebElement deleteThenContinueButton;
+
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -114,13 +128,18 @@ public class HomePage extends DriverManager {
         String[] detail = details.split(",");
         titleRadioButton.click();
         passwordField.sendKeys("testing@123");
-        dropDown(days).selectByIndex(4);
-        dropDown(months).selectByValue("6");
-        dropDown(years).selectByVisibleText("1999");
+//        dropDown(days).selectByIndex(4);
+//        dropDown(months).selectByValue("6");
+//        dropDown(years).selectByVisibleText("1999");
+        selectByIndex(days, 4);
+        selectByValue(months, "6");
+        selectByVisibleText(years, "1999");
         WebElement checkBox = driver.findElement(By.id("newsletter"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true)", checkBox);
-        js.executeScript("arguments[0].click()", checkBox);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].scrollIntoView(true)", checkBox);
+//        js.executeScript("arguments[0].click()", checkBox);
+        scrollToElement(checkBox);
+        jsClick(checkBox);
         firstNameTextField.sendKeys(detail[0]);
         lastNameTextField.sendKeys(detail[1]);
         address1TextField.sendKeys(detail[2]);
@@ -132,6 +151,7 @@ public class HomePage extends DriverManager {
     }
 
     public void createAccountButtonClick() {
+        scrollToElement(createAccountButton);
         createAccountButton.click();
     }
 
@@ -140,8 +160,27 @@ public class HomePage extends DriverManager {
         Assert.assertEquals(creatMsg, "ACCOUNT CREATED!");
     }
 
-
-    public void closeThePage() {
-        DriverManager.quitDriver();
+    public void clickContinueButton() {
+        continueButton.click();
     }
+
+    public void validateLoggedInWithCorrectUsername() {
+        String userName = loggedUserName.getText();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(userName,"nithin");
+
+    }
+
+    public void clickDeleteAccountButton() {
+        deleteAccount.click();
+
+    }
+
+    public void validateAccountDeleted(){
+        String accountDeleted = accountDeletedMsg.getText();
+        Assert.assertEquals(accountDeleted,"ACCOUNT DELETED!");
+        deleteThenContinueButton.click();
+    }
+
+
 }
