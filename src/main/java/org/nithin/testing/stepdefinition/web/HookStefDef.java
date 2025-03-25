@@ -16,11 +16,11 @@ public class HookStefDef {
 ////        driver = DriverManager.getDriver(); // Initialize driver before each scenario
 //    }
 
-        @Before(order = 0)
+//        @Before(order = 0)
 //    @BeforeAll
         public void beforeScenarios(Scenario scenario) {
             System.out.println("Before Scenario: " + scenario.getName());
-//        driver = DriverManager.getDriver(); // Initialize driver before each scenario
+        driver = DriverManager.getDriver(); // Initialize driver before each scenario
         }
 
         //    @AfterAll

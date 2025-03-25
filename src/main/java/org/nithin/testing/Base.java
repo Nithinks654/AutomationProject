@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
@@ -72,6 +73,11 @@ public class Base {
         driver.switchTo().window(lastTab);
     }
 
+    public void getTextAndValidate(WebElement element,String expectedMessage) {
+        String actualMessage = element.getText();
+        Assert.assertEquals(actualMessage,expectedMessage);
+    }
+
 
     // Hover over an element
     public void hoverOverElement(WebElement element) {
@@ -87,6 +93,9 @@ public class Base {
     // Right-click (Context Click)
     public void rightClick(WebElement element) {
         actions.contextClick(element).perform();
+    }
+    public void leftClick(WebElement element) {
+        actions.moveToElement(element).click().build().perform();
     }
 
 
@@ -168,9 +177,10 @@ public class Base {
     }
 
 
-    public void clickElement(By locator) {
-        waitUntilClickable(driver.findElement(locator));
-        driver.findElement(locator).click();
+    public void clickElement(WebElement element) {
+//        waitUntilClickable(element);
+        waitUntilVisible(element);
+        element.click();
     }
 
     public void doubleClickElement(WebElement element) {
@@ -190,9 +200,6 @@ public class Base {
         scrollLittleUp();
     }
 
-    public void jsClick(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click()",element);
-    }
 
     // Scroll to the bottom of the page
     public void scrollToBottom() {

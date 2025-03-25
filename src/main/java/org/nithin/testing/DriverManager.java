@@ -38,6 +38,7 @@ public class DriverManager  {
             options.addArguments("--ignore-gpu-blacklist");
             options.addArguments("--disable-software-rasterizer");
             options.addArguments("--remote-allow-origins=*");
+            options.addArguments("--disable-popup-blocking");
             driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         }

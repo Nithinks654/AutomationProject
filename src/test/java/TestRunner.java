@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features", //for providing path for features which we have to run
         glue = "org/nithin/testing/stepdefinition", //for providing stepDefination path
         plugin = {"pretty","json:target/cucumber-reports.json","html:target/cucumber-reports.html","junit:target/cucumber-reports.xml"},
-        tags = "@checking", // to control what scenarios to run
+        tags = "@Product", // to control what scenarios to run
         monochrome= true // to showcase reports neatly
 )
 public class TestRunner {

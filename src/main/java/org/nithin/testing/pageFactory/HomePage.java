@@ -79,7 +79,7 @@ public class HomePage extends Base {
     @FindBy (css = "ul > li:nth-child(10) > a > b")
     WebElement loggedUserName;
 
-    @FindBy(css = "a >i.fa.fa-trash-o")
+    @FindBy(css = "a[href='/delete_account']")
     WebElement deleteAccount;
 
     @FindBy(css = "h2.title.text-center>b")
@@ -111,6 +111,7 @@ public class HomePage extends Base {
         signUpButton.click();
         String emailExists = emailExistsMsg.getText();
         Assert.assertEquals(emailExists, "Email Address already exist!");
+        driver.close();
 
     }
 
@@ -139,7 +140,7 @@ public class HomePage extends Base {
 //        js.executeScript("arguments[0].scrollIntoView(true)", checkBox);
 //        js.executeScript("arguments[0].click()", checkBox);
         scrollToElement(checkBox);
-        jsClick(checkBox);
+        clickUsingJS(checkBox);
         firstNameTextField.sendKeys(detail[0]);
         lastNameTextField.sendKeys(detail[1]);
         address1TextField.sendKeys(detail[2]);
@@ -156,8 +157,9 @@ public class HomePage extends Base {
     }
 
     public void validateAccountCreatedMessage() {
-        String creatMsg = accountCreatedMessage.getText();
-        Assert.assertEquals(creatMsg, "ACCOUNT CREATED!");
+        waitUntilVisible(accountCreatedMessage);
+        String createMsg = accountCreatedMessage.getText();
+        Assert.assertEquals(createMsg, "ACCOUNT CREATED!");
     }
 
     public void clickContinueButton() {
@@ -180,6 +182,7 @@ public class HomePage extends Base {
         String accountDeleted = accountDeletedMsg.getText();
         Assert.assertEquals(accountDeleted,"ACCOUNT DELETED!");
         deleteThenContinueButton.click();
+        driver.close();
     }
 
 
